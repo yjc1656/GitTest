@@ -1,0 +1,247 @@
+{% extends 'contract_app/base.html' %}
+
+{% block title %}
+    HS编码查询
+{% endblock title %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="/static/css/hs.css">
+    <!-- 引入bootstrap样式 -->
+    <link href="/static/css/bootstrap-table.css" rel="stylesheet">
+    <script src="/static/js/bootstrap-table.js"></script>
+    <script src="/static/js/bootstrap-table-zh-CN.js"></script>
+
+{% endblock custom_css %}
+
+{% block content %}
+
+
+    <div class="hs_head">
+        <form action="/hs_code_new" method="post" class="form-horizontal">
+            {% csrf_token %}
+             <p align="center">2020版HS编码查询</p>
+            <div class="form-group hs_input">
+                <label for="custom" class="col-sm-2 control-label">客户名称</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="custom" name="custom" placeholder="客户名称">
+                </div>
+            </div>
+
+            <div class="form-group hs_input1">
+                <label for="en_name" class="col-sm-2 control-label">产品英文名</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="en_name" name="en_name" placeholder="产品英文名"  autocomplete="on">
+                </div>
+            </div>
+
+            <div class="form-group hs_input">
+                <label for="zh_name" class="col-sm-2 control-label">产品中文名</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="zh_name" name="zh_name" placeholder="产品中文名" autocomplete="on">
+                </div>
+            </div>
+
+            <div class="form-group hs_input1">
+                <label for="part_num" class="col-sm-2 control-label">零件号</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="part_num" name="part_num" placeholder="零件号" autocomplete="on">
+                </div>
+            </div>
+
+            <div class="form-group hs_input">
+                <label for="cybm" class="col-sm-2 control-label">长裕编码</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="cybm" name="cybm" placeholder="长裕编码" autocomplete="on">
+                </div>
+            </div>
+
+            <div class="form-group hs_input1">
+                <label for="hs_code" class="col-sm-2 control-label">HS编码</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="hs_code" name="hs_code" placeholder="HS编码" autocomplete="on">
+                </div>
+            </div>
+            <div class="form-group hs_input">
+                <label for="hs_code" class="col-sm-2 control-label">隶属机构</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="sub_cra" name="sub_cra" placeholder="隶属机构" autocomplete="on">
+                </div>
+            </div>
+
+            <div class="btn_center">
+                <input type="submit" value="查询" class="btn btn-primary btn-block">
+            </div>
+
+        </form>
+    </div>
+    <div class="content">
+        <table  class="table table-bordered" data-toggle="bootstrap-table" id="table">
+{#            <tr bgcolor="#f3f3f3">#}
+{#                <th style="text-align:center;" data-field="cus">客户名称</th>#}
+{#                <th style="text-align:center;" data-field="en">产品英文名称</th>#}
+{#                <th style="text-align:center;" data-field="zh">中文名称</th>#}
+{#                <th style="text-align:center;" data-field="bm">产品编码</th>#}
+{#                <th style="text-align:center;" data-field="cy">长裕编码</th>#}
+{#                <th style="text-align:center;" data-field="xn">产品性能</th>#}
+{#                <th style="text-align:center;" data-field="hs">HS编码</th>#}
+{#                <th style="text-align:center;" data-field="ys">申报要素</th>#}
+{#                <th style="text-align:center;" data-field="note">备注</th>#}
+{#            </tr>#}
+        {% for hs_code_new in hs_codes_new%}
+            <tr align="center">
+            <td align="center">
+{#                # 厂家#}
+                {{ hs_code_new.custom}}
+            </td>
+            <td>
+{#                /*长裕编码#}
+                {{ hs_code_new.goods_code }}
+            </td>
+            <td>
+{#                # 中文名#}
+                {{ hs_code_new.goods_zh_name}}
+            </td>
+            <td>
+{#                #零件号#}
+                {{ hs_code_new.part_num}}
+            </td>
+            <td>
+{#                # 英文名称#}
+                {{ hs_code_new.goods_en_name }}
+            </td>
+
+            <td>
+{#                # 隶属机构#}
+                {{ hs_code_new.subull_crapidiary }}
+            </td>
+            <td>
+{#                # 单价#}
+                {{ hs_code_new.unit_price}}
+            </td>
+            <td>
+{#                # 数量#}
+                {{ hs_code_new.quantity }}
+            </td>
+            <td>
+{#                # HS编码#}
+                {{ hs_code_new.hs_code }}
+            </td>
+            <td>
+{#                # 申报要素#}
+                {{ hs_code_new.hs_name }}
+            </td>
+            <td>
+{#                 # 合同号#}
+                {{ hs_code_new.contract_num }}
+            </td>
+            <td>
+{#                # 采购时间#}
+                {{ hs_code_new.purchase_year }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    <script>
+        $('table').bootstrapTable({
+            method: 'GET',                      //请求方式（*）
+            pagination: true,
+            sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+            pageSize: 5,
+            pageNumber: 1,
+            pageList: [5,10, 15, 30],//分页步进值
+            striped: true,
+            dataField: "list",
+
+            columns: [
+                {
+                    field: 'cus',
+                    title: '厂家',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+                {
+                    field: 'cy',
+                    title: '长裕编码',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+                {
+                    field: 'zh',
+                    title: '中文名称',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+                {
+                    field: 'pn',
+                    title: '零件号',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+                {
+                    field: 'en',
+                    title: '产品英文名称',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+                {
+                    field: 'sc',
+                    title: '隶属机构',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+
+                {
+                    field: 'dj',
+                    title: '单价',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+                {
+                    field: 'sl',
+                    title: '采购数量',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+                {
+                    field: 'hs',
+                    title: 'HS编码',
+                    align: 'center',
+                    {#colspan: 1,#}
+                    width:200
+                },
+                {
+                    field: 'ys',
+                    title: '申报要素',
+                    align: 'center',
+                    colspan: 1,
+                    width:600
+                },
+                {
+                    field: 'ht',
+                    title: '合同号',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+                {
+                    field: 'sj',
+                    title: '采购时间',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+            ]
+            }
+
+        )
+    </script>
+{% endblock content %}

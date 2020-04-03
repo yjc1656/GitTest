@@ -1,0 +1,25 @@
+.hs_head{
+    width: 1200px;
+    margin: 0 auto;
+    padding: 10px 10px;
+}
+.hs_input{
+    float: left;
+    width: 600px;
+    margin: 10px auto;
+}
+.hs_input1{
+    float: right;
+    width: 600px;
+    margin: 10px auto;
+}
+
+.btn_center{
+    width: 350px;
+    margin: 10px auto;
+    /*padding-top: 100px;*/
+}
+.content{
+    width: 1200px;
+    margin: 0 auto;
+}

@@ -1,0 +1,28 @@
+body{
+    background: #f3f3f3;
+}
+.page-title{
+    text-align: center;
+}
+.font{
+    color:black;
+    font-weight: bold;
+}
+
+
+.search{
+    /*background: gray;*/
+    width: 730px;
+    margin: 0 auto;
+    padding: 10px 10px;
+}
+.contract{
+    /*background: #000;*/
+    width: 400px;
+    margin: 0 auto;
+}
+
+.table_set{
+    margin: 0 auto;
+    width: 1200px;
+}

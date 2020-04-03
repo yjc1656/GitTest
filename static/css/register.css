@@ -1,0 +1,16 @@
+body{
+    background: #f3f3f3;
+}
+
+.page-title{
+    text-align: center;
+}
+.register{
+    width: 730px;
+    margin: 0 auto;
+    padding: 10px 10px;
+}
+.register_content{
+    width: 580px;
+    margin: 0 auto;
+}

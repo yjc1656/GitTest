@@ -1,0 +1,29 @@
+{% extends 'contract_app/base.html' %}
+
+
+{% block title %}
+    HS编码
+{% endblock title %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="/static/css/contract_info.css">
+{% endblock custom_css %}
+
+{% block content %}
+    <br/>
+    <h3 align="center" >请导入HS编码文件</h3>
+    <form action="/hs_info" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="panel">
+            <input type="file" name="hs_code" required="required">
+        </div>
+        <div class="form-group button1" >
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-primary " >立即导入</button>
+            </div>
+        {% if message %}
+            <div class="alert alert-warning">{{ message }}</div>
+        {% endif %}
+        </div>
+    </form>
+{% endblock %}

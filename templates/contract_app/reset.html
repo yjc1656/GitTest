@@ -1,0 +1,62 @@
+{% extends 'contract_app/base.html' %}
+
+{% block title %}
+    密码重置
+{% endblock title %}
+{% block custom_css %}
+    <link rel="stylesheet" href="/static/css/register.css">
+{% endblock custom_css %}
+
+{% block content %}
+    <div class="register">
+        <h3 align="center">密码重置</h3>
+        <div class="register_content">
+            <form class="form-horizontal" method="post" action="/reset">
+                {% csrf_token %}
+{#        用户名#}
+                <div class="form-group">
+                    <label for="inputUser" class="col-sm-2 control-label">用户名：</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputUser"
+                             placeholder="用户名" name="username" required="required">
+                    </div>
+                </div>
+
+
+
+        {#        //密码#}
+              <div class="form-group">
+                <label for="inputPassword" class="col-sm-2 control-label">密码：</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="inputPassword"
+                         placeholder="密码" name="pwd1" required="required">
+                </div>
+              </div>
+
+        {#        //密码确认#}
+                <div class="form-group">
+                    <label for="inputPassword1" class="col-sm-2 control-label">确认密码：</label>
+                    <div class="col-sm-10">
+                      <input type="password" class="form-control" id="inputPassword1"
+                             placeholder="确认密码" name="pwd2" required="required">
+                    </div>
+                </div>
+
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-primary btn-group-justified">密码重置</button>
+                </div>
+              </div>
+                {% for message in messages %}
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>{{ message }}</strong>
+                    </div>
+                {% endfor %}
+
+            </form>
+        </div>
+    </div>
+{% endblock content %}

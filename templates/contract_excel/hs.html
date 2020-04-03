@@ -1,0 +1,197 @@
+{% extends 'contract_app/base.html' %}
+
+{% block title %}
+    HS编码查询
+{% endblock title %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="/static/css/hs.css">
+    <!-- 引入bootstrap样式 -->
+    <link href="/static/css/bootstrap-table.css" rel="stylesheet">
+    <script src="/static/js/bootstrap-table.js"></script>
+    <script src="/static/js/bootstrap-table-zh-CN.js"></script>
+
+{% endblock custom_css %}
+
+{% block content %}
+
+
+    <div class="hs_head">
+        <form action="/hs_code" method="post" class="form-horizontal">
+            {% csrf_token %}
+             <p align="center">HS编码查询</p>
+            <div class="form-group hs_input">
+                <label for="custom" class="col-sm-2 control-label">客户名称</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="custom" name="custom" placeholder="客户名称">
+                </div>
+            </div>
+
+            <div class="form-group hs_input1">
+                <label for="en_name" class="col-sm-2 control-label">产品英文名</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="en_name" name="en_name" placeholder="产品英文名"  autocomplete="on">
+                </div>
+            </div>
+
+            <div class="form-group hs_input">
+                <label for="zh_name" class="col-sm-2 control-label">产品中文名</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="zh_name" name="zh_name" placeholder="产品中文名" autocomplete="on">
+                </div>
+            </div>
+
+            <div class="form-group hs_input1">
+                <label for="product" class="col-sm-2 control-label">产品编码</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="product" name="product" placeholder="客户产品编码" autocomplete="on">
+                </div>
+            </div>
+
+            <div class="form-group hs_input">
+                <label for="cybm" class="col-sm-2 control-label">长裕编码</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="cybm" name="cybm" placeholder="长裕编码" autocomplete="on">
+                </div>
+            </div>
+
+            <div class="form-group hs_input1">
+                <label for="hs_code" class="col-sm-2 control-label">HS编码</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="hs_code" name="hs_code" placeholder="HS编码" autocomplete="on">
+                </div>
+            </div>
+
+            <div class="btn_center">
+                <input type="submit" value="查询" class="btn btn-primary btn-block">
+            </div>
+
+        </form>
+    </div>
+    <div class="content">
+        <table  class="table table-bordered" data-toggle="bootstrap-table" id="table">
+{#            <tr bgcolor="#f3f3f3">#}
+{#                <th style="text-align:center;" data-field="cus">客户名称</th>#}
+{#                <th style="text-align:center;" data-field="en">产品英文名称</th>#}
+{#                <th style="text-align:center;" data-field="zh">中文名称</th>#}
+{#                <th style="text-align:center;" data-field="bm">产品编码</th>#}
+{#                <th style="text-align:center;" data-field="cy">长裕编码</th>#}
+{#                <th style="text-align:center;" data-field="xn">产品性能</th>#}
+{#                <th style="text-align:center;" data-field="hs">HS编码</th>#}
+{#                <th style="text-align:center;" data-field="ys">申报要素</th>#}
+{#                <th style="text-align:center;" data-field="note">备注</th>#}
+{#            </tr>#}
+        {% for hs_code in hs_codes%}
+            <tr align="center">
+            <td align="center">
+                {{ hs_code.custom}}
+            </td>
+            <td>
+                {{ hs_code.goods_en_name }}
+            </td>
+            <td>
+                {{ hs_code.goods_zh_name}}
+            </td>
+            <td>
+                {{ hs_code.product_code}}
+            </td>
+            <td>
+                {{ hs_code.goods_code }}
+            </td>
+            <td>
+                {{ hs_code.property }}
+            </td>
+            <td>
+                {{ hs_code.hs_code}}
+            </td>
+            <td>
+                {{ hs_code.hs_name }}
+            </td>
+            <td>
+                {{ hs_code.note }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    <script>
+        $('table').bootstrapTable({
+            method: 'GET',                      //请求方式（*）
+            pagination: true,
+            sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+            pageSize: 5,
+            pageNumber: 1,
+            pageList: [5,10, 15, 30],//分页步进值
+            striped: true,
+            dataField: "list",
+
+            columns: [
+                {
+                    field: 'cus',
+                    title: '客户名称',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+                {
+                    field: 'en',
+                    title: '产品英文名称',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+                {
+                    field: 'zh',
+                    title: '中文名称',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+                {
+                    field: 'bm',
+                    title: '产品编码',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+                {
+                    field: 'cy',
+                    title: '长裕编码',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+                {
+                    field: 'xn',
+                    title: '产品性能',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                },
+                {
+                    field: 'hs',
+                    title: 'HS编码',
+                    align: 'center',
+                    {#colspan: 1,#}
+                    width:200
+                },
+                {
+                    field: 'ys',
+                    title: '申报要素',
+                    align: 'center',
+                    colspan: 1,
+                    width:600
+                },
+                {
+                    field: 'note',
+                    title: '备注',
+                    align: 'center',
+                    colspan: 1,
+                    width:200
+                }
+            ]
+            }
+
+        )
+    </script>
+{% endblock content %}
